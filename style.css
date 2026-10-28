@@ -457,18 +457,11 @@ button, input, select {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 0.95fr 1.25fr;
-  gap: 40px;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 50px;
   align-items: center;
   position: relative;
   z-index: 2;
-}
-
-@media (max-width: 1100px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
 }
 
 .hero-badge-wrap {
@@ -744,455 +737,168 @@ button, input, select {
 }
 
 .sim-partner-badge {
-/* ===================================================================
-   SIMULADOR FINANCEIRO OFICIAL AXON FINANCE / JOINBANK (LAYOUT 2 COLUNAS)
-   Fiel à identidade visual da imagem de referência
-   =================================================================== */
-.simulator-card.axon-sim-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 28px;
-  padding: 32px 34px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 210, 0, 0.25);
-  color: #1E293B;
-  display: grid;
-  grid-template-columns: 1.15fr 0.95fr;
-  gap: 32px;
-  align-items: stretch;
-}
-
-@media (max-width: 991px) {
-  .simulator-card.axon-sim-card {
-    grid-template-columns: 1fr;
-    padding: 24px 20px;
-    gap: 26px;
-  }
-}
-
-/* Coluna Esquerda: Formulário de Configuração */
-.axon-sim-left {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.axon-sim-topbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #F1F5F9;
-}
-
-.axon-badge-brand {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: #F8FAFC;
-  border: 1px solid #CBD5E1;
-  padding: 5px 14px;
+  gap: 8px;
+  background: rgba(255, 210, 0, 0.12);
+  border: 1px solid rgba(255, 210, 0, 0.35);
+  padding: 6px 14px;
   border-radius: var(--radius-full);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  color: #0F172A;
+  color: #FFD200;
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.axon-badge-brand svg {
-  width: 14px;
-  height: 14px;
-}
-
-.axon-badge-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(16, 185, 129, 0.1);
-  padding: 5px 12px;
-  border-radius: var(--radius-full);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #059669;
-}
-
-.axon-status-dot {
-  width: 7px;
-  height: 7px;
+.sim-partner-dot {
+  width: 8px;
+  height: 8px;
   background-color: #10B981;
   border-radius: 50%;
-  box-shadow: 0 0 6px #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulse-dot 2s infinite ease-in-out;
 }
 
-/* Modalidades de Crédito em Pills */
-.axon-section-block label.axon-field-label {
-  display: block;
-  font-family: var(--font-heading);
-  font-size: 0.92rem;
-  font-weight: 800;
-  color: #0F172A;
-  margin-bottom: 10px;
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
 }
 
-.axon-modal-pills {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.sim-terms-selector {
+  margin-top: 4px;
+}
+
+.sim-terms-pills {
+  display: flex;
   gap: 8px;
-}
-
-@media (max-width: 600px) {
-  .axon-modal-pills {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.axon-modal-btn {
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 14px;
-  padding: 10px 6px;
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #475569;
-  cursor: pointer;
-  text-align: center;
-  line-height: 1.25;
-  transition: all var(--transition-fast);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 52px;
-}
-
-.axon-modal-btn:hover {
-  border-color: #F59E0B;
-  color: #0F172A;
-  background: #FFFBEB;
-}
-
-.axon-modal-btn.active {
-  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%);
-  color: #0A0D10;
-  border-color: #FFD200;
-  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
-  font-weight: 800;
-}
-
-/* Campos de Identificação (Nome e CPF) */
-.axon-inputs-dual {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 12px;
-}
-
-@media (max-width: 600px) {
-  .axon-inputs-dual {
-    grid-template-columns: 1fr;
-  }
-}
-
-.axon-field-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.axon-field-group label {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #334155;
-}
-
-.axon-input-text {
   width: 100%;
-  height: 44px;
-  background: #F8FAFC;
-  border: 1px solid #CBD5E1;
-  border-radius: 12px;
-  padding: 0 14px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: #0F172A;
-  transition: all var(--transition-fast);
 }
 
-.axon-input-text:focus {
-  background: #FFFFFF;
-  border-color: #F59E0B;
-  box-shadow: 0 0 0 3px rgba(255, 210, 0, 0.25);
-}
-
-/* Sliders com Visor de Valor em Pill Amarelo */
-.axon-slider-block {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.axon-slider-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.axon-slider-header .axon-label {
-  font-family: var(--font-heading);
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: #0F172A;
-}
-
-.axon-value-pill {
-  background: #FFFBEB;
-  border: 1px solid #FDE68A;
-  color: #0F172A;
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 800;
-  padding: 4px 14px;
-  border-radius: var(--radius-full);
-}
-
-.axon-range-input {
-  width: 100%;
-  -webkit-appearance: none;
-  appearance: none;
-  height: 6px;
-  border-radius: 4px;
-  background: #E2E8F0;
-  outline: none;
-  margin: 10px 0 4px;
-}
-
-.axon-range-input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #FFD200;
-  border: 3px solid #0F172A;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: transform var(--transition-fast);
-}
-
-.axon-range-input::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-}
-
-.axon-slider-limits {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.72rem;
-  color: #94A3B8;
-  font-weight: 600;
-}
-
-/* Botão de Calcular na Coluna Esquerda */
-.axon-btn-calc {
-  width: 100%;
-  height: 48px;
-  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%);
-  color: #0A0D10;
-  border: none;
-  border-radius: 12px;
-  font-family: var(--font-heading);
-  font-size: 0.92rem;
-  font-weight: 800;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
-  transition: all var(--transition-smooth);
-}
-
-.axon-btn-calc:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.45);
-}
-
-/* ===================================================================
-   Coluna Direita: Card de Proposta Bancária Calculada
-   =================================================================== */
-.axon-sim-right {
-  background: #FFFFFF;
-  border: 1.5px solid #FDE68A;
-  border-radius: 22px;
-  padding: 26px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.08);
-}
-
-.axon-proposal-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-}
-
-.axon-proposal-title {
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: #64748B;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  line-height: 1.25;
-}
-
-.axon-formalizacao-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: #F1F5F9;
-  border: 1px solid #E2E8F0;
-  border-radius: var(--radius-full);
-  padding: 4px 10px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #475569;
-}
-
-.axon-proposal-amount {
-  font-family: var(--font-heading);
-  font-size: 2.6rem;
-  font-weight: 900;
-  color: #0F172A;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.axon-proposal-sub {
-  font-size: 0.84rem;
-  color: #64748B;
-  font-weight: 600;
-  margin-bottom: 18px;
-}
-
-/* Tabela de Detalhes da Proposta */
-.axon-proposal-table {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 14px 0;
-  border-top: 1px solid #F1F5F9;
-  border-bottom: 1px solid #F1F5F9;
-  margin-bottom: 16px;
-}
-
-.axon-prop-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.83rem;
-}
-
-.axon-prop-label {
-  color: #64748B;
-  font-weight: 600;
-}
-
-.axon-prop-value {
-  color: #0F172A;
-  font-weight: 800;
-}
-
-.axon-taxa-badge {
-  background: #FEF3C7;
-  color: #92400E;
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-weight: 800;
-  font-size: 0.8rem;
-}
-
-/* Caixa de Formalização Segura BACEN */
-.axon-security-box {
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 10px 12px;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.74rem;
-  color: #475569;
-  line-height: 1.4;
-  margin-bottom: 16px;
-}
-
-.axon-security-box strong {
-  color: #0F172A;
-}
-
-.axon-security-icon {
-  width: 14px;
-  height: 14px;
-  color: #D97706;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-/* Botões da Proposta na Coluna Direita */
-.axon-proposal-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.axon-btn-formalizar-hero {
-  width: 100%;
-  height: 48px;
-  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%);
-  color: #0A0D10;
-  border: none;
-  border-radius: 12px;
-  font-family: var(--font-heading);
-  font-size: 0.94rem;
-  font-weight: 800;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.35);
-  transition: all var(--transition-smooth);
-}
-
-.axon-btn-formalizar-hero:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5);
-}
-
-.axon-btn-wpp-hero {
-  width: 100%;
-  height: 42px;
-  background: #FFFFFF;
-  border: 1.5px solid #0F172A;
-  color: #0F172A;
-  border-radius: 12px;
+.sim-term-pill {
+  flex: 1;
+  padding: 8px 10px;
+  background: rgba(10, 13, 16, 0.7);
+  border: 1px solid var(--color-black-border);
+  border-radius: var(--radius-md);
+  color: var(--color-gray-300);
   font-family: var(--font-heading);
   font-size: 0.86rem;
   font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.sim-term-pill:hover {
+  border-color: rgba(255, 210, 0, 0.5);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+.sim-term-pill.active {
+  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%);
+  color: #0A0D10;
+  border-color: #FFD200;
+  box-shadow: 0 4px 14px rgba(255, 210, 0, 0.35);
+  font-weight: 800;
+}
+
+.sim-result-top-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34D399;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.sim-actions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.sim-btn-formalizar {
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%) !important;
+  color: #0A0D10 !important;
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 800;
+  border: none;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 25px rgba(255, 210, 0, 0.4);
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  transition: all var(--transition-smooth);
+}
+
+.sim-btn-formalizar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 210, 0, 0.55);
+}
+
+.sim-btn-wpp {
+  width: 100%;
+  height: 44px;
+  background: rgba(10, 13, 16, 0.8) !important;
+  border: 1px solid var(--color-black-border) !important;
+  color: var(--color-gray-300) !important;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   text-decoration: none;
   transition: all var(--transition-fast);
 }
 
-.axon-btn-wpp-hero:hover {
-  background: #F8FAFC;
-  border-color: #F59E0B;
-  color: #B45309;
+.sim-btn-wpp:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 210, 0, 0.4) !important;
+  color: var(--color-white) !important;
   transform: translateY(-1px);
+}
+
+.sim-integration-footer {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.sim-secure-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  color: #94A3B8;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.sim-disclaimer {
+  font-size: 0.7rem;
+  color: var(--color-gray-500);
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
 }
 
 /* ===================================================================
