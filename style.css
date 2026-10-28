@@ -736,11 +736,168 @@ button, input, select {
   color: var(--color-white);
 }
 
-.sim-disclaimer {
+.sim-partner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 210, 0, 0.12);
+  border: 1px solid rgba(255, 210, 0, 0.35);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #FFD200;
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sim-partner-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.sim-terms-selector {
+  margin-top: 4px;
+}
+
+.sim-terms-pills {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.sim-term-pill {
+  flex: 1;
+  padding: 8px 10px;
+  background: rgba(10, 13, 16, 0.7);
+  border: 1px solid var(--color-black-border);
+  border-radius: var(--radius-md);
+  color: var(--color-gray-300);
+  font-family: var(--font-heading);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.sim-term-pill:hover {
+  border-color: rgba(255, 210, 0, 0.5);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+.sim-term-pill.active {
+  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%);
+  color: #0A0D10;
+  border-color: #FFD200;
+  box-shadow: 0 4px 14px rgba(255, 210, 0, 0.35);
+  font-weight: 800;
+}
+
+.sim-result-top-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34D399;
   font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.sim-actions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.sim-btn-formalizar {
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%) !important;
+  color: #0A0D10 !important;
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 800;
+  border: none;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 25px rgba(255, 210, 0, 0.4);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-smooth);
+}
+
+.sim-btn-formalizar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 210, 0, 0.55);
+}
+
+.sim-btn-wpp {
+  width: 100%;
+  height: 44px;
+  background: rgba(10, 13, 16, 0.8) !important;
+  border: 1px solid var(--color-black-border) !important;
+  color: var(--color-gray-300) !important;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.sim-btn-wpp:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 210, 0, 0.4) !important;
+  color: var(--color-white) !important;
+  transform: translateY(-1px);
+}
+
+.sim-integration-footer {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.sim-secure-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  color: #94A3B8;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.sim-disclaimer {
+  font-size: 0.7rem;
   color: var(--color-gray-500);
   text-align: center;
-  margin-top: 10px;
+  margin: 0;
   line-height: 1.4;
 }
 
@@ -1870,4 +2027,1135 @@ button, input, select {
   opacity: 1;
   transform: translateX(0);
 }
+
+/* ===================================================================
+   SISTEMA DE PÁGINAS FILHAS (SPA DINÂMICA SEM SAIR DO SITE)
+   Axon Fintech Design System - Amarelo, Preto e Cinzas
+   =================================================================== */
+
+@keyframes fadeInSubpage {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.subpage-container {
+  width: 100%;
+  min-height: 80vh;
+  background-color: #FFFFFF;
+}
+
+/* Barra de Navegação Superior / Breadcrumb da Página Filha */
+.subpage-breadcrumb-bar {
+  background: rgba(10, 13, 16, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-black-border);
+  position: sticky;
+  top: 72px;
+  z-index: 95;
+  padding: 12px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.subpage-breadcrumb-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.subpage-breadcrumb-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.subpage-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  background: var(--color-black-card);
+  border: 1px solid var(--color-black-border);
+  color: var(--color-white);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.subpage-back-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-black);
+  border-color: var(--color-primary);
+  transform: translateX(-3px);
+  box-shadow: 0 4px 15px rgba(255, 210, 0, 0.35);
+}
+
+.subpage-breadcrumb-trail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--color-gray-400);
+}
+
+.subpage-breadcrumb-trail a {
+  color: var(--color-gray-300);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.subpage-breadcrumb-trail a:hover {
+  color: var(--color-primary);
+}
+
+.subpage-breadcrumb-sep {
+  color: var(--color-gray-600);
+  font-size: 0.8rem;
+}
+
+.subpage-breadcrumb-current {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.subpage-badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-full);
+  color: #10B981;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.subpage-badge-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulse-dot 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Conteúdo Individual da Subpágina */
+.subpage-content {
+  display: none;
+}
+
+.subpage-content.active {
+  display: block;
+  animation: fadeInSubpage 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hero Dedicado da Subpágina */
+.subpage-hero {
+  background: radial-gradient(circle at 80% 20%, rgba(255, 210, 0, 0.08) 0%, transparent 60%),
+              linear-gradient(180deg, #0A0D10 0%, #12161A 100%);
+  color: var(--color-white);
+  padding: 60px 0 80px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-black-border);
+}
+
+.subpage-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 210, 0, 0.3), transparent);
+}
+
+.subpage-hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.subpage-category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 210, 0, 0.12);
+  border: 1px solid rgba(255, 210, 0, 0.35);
+  color: var(--color-primary);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+
+.subpage-hero-title {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-white);
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.subpage-hero-title span {
+  color: var(--color-primary);
+}
+
+.subpage-hero-desc {
+  font-size: 1.12rem;
+  color: var(--color-gray-300);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  max-width: 620px;
+}
+
+.subpage-hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.subpage-hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.86rem;
+  color: var(--color-gray-200);
+}
+
+.subpage-hero-pill.highlight {
+  background: rgba(255, 210, 0, 0.12);
+  border-color: rgba(255, 210, 0, 0.4);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.subpage-hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Card Interativo Lateral do Hero da Subpágina */
+.subpage-card-interactive {
+  background: var(--color-black-card);
+  border: 1px solid var(--color-black-border);
+  border-radius: 24px;
+  padding: 34px 28px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 210, 0, 0.15);
+  position: relative;
+}
+
+.subpage-card-interactive::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 30px;
+  right: 30px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  border-radius: 999px;
+}
+
+.subpage-card-head {
+  margin-bottom: 22px;
+}
+
+.subpage-card-head h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--color-white);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.subpage-card-head p {
+  font-size: 0.86rem;
+  color: var(--color-gray-400);
+}
+
+.subpage-calc-group {
+  margin-bottom: 20px;
+}
+
+.subpage-calc-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-gray-300);
+  margin-bottom: 8px;
+}
+
+.subpage-calc-val-display {
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.subpage-calc-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.subpage-calc-prefix {
+  position: absolute;
+  left: 16px;
+  color: var(--color-gray-400);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.subpage-calc-input {
+  width: 100%;
+  background: #12161A;
+  border: 1.5px solid var(--color-black-border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px 14px 46px;
+  color: var(--color-white);
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  transition: border-color var(--transition-fast);
+}
+
+.subpage-calc-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 210, 0, 0.2);
+}
+
+.subpage-result-box {
+  background: #12161A;
+  border: 1px solid rgba(255, 210, 0, 0.25);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.subpage-result-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gray-400);
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.subpage-result-val {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.subpage-result-detail {
+  font-size: 0.84rem;
+  color: var(--color-gray-300);
+}
+
+/* Seções Internas da Subpágina */
+.subpage-section {
+  padding: 72px 0;
+  position: relative;
+}
+
+.subpage-section.bg-light {
+  background-color: var(--color-gray-50);
+}
+
+.subpage-section.bg-white {
+  background-color: #FFFFFF;
+}
+
+.subpage-section.bg-dark {
+  background-color: #0A0D10;
+  color: var(--color-white);
+}
+
+.subpage-section-head {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 48px;
+}
+
+.subpage-section-tag {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #B45309;
+  background: rgba(245, 158, 11, 0.12);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+}
+
+.subpage-section-head h2 {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.subpage-section.bg-dark .subpage-section-head h2 {
+  color: var(--color-white);
+}
+
+.subpage-section-head p {
+  font-size: 1.05rem;
+  color: var(--color-gray-600);
+  line-height: 1.6;
+}
+
+.subpage-section.bg-dark .subpage-section-head p {
+  color: var(--color-gray-400);
+}
+
+/* Grid de Vantagens e Benefícios */
+.subpage-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.subpage-feature-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 30px 26px;
+  transition: all var(--transition-smooth);
+  position: relative;
+}
+
+.subpage-feature-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 210, 0, 0.6);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+}
+
+.subpage-feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255, 210, 0, 0.15);
+  color: #B45309;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.subpage-feature-card h4 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-gray-900);
+  margin-bottom: 10px;
+}
+
+.subpage-feature-card p {
+  font-size: 0.92rem;
+  color: var(--color-gray-600);
+  line-height: 1.6;
+}
+
+/* Passo a Passo Ilustrado */
+.subpage-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.subpage-step-item {
+  background: #FFFFFF;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.subpage-step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--color-black);
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 210, 0, 0.3);
+}
+
+.subpage-step-item h4 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-gray-900);
+  margin-bottom: 8px;
+}
+
+.subpage-step-item p {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  line-height: 1.55;
+}
+
+/* Tabela Comparativa de Taxas */
+.subpage-table-wrap {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.subpage-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.subpage-table th, .subpage-table td {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.subpage-table th {
+  background: var(--color-gray-100);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-gray-700);
+}
+
+.subpage-table th.highlight-col {
+  background: var(--color-black);
+  color: var(--color-primary);
+}
+
+.subpage-table td.highlight-col {
+  background: rgba(255, 210, 0, 0.05);
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+.subpage-badge-rec {
+  background: var(--color-primary);
+  color: var(--color-black);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin-left: 8px;
+}
+
+/* Banner de Conversão Final da Subpágina */
+.subpage-cta-banner {
+  background: radial-gradient(circle at 100% 0%, rgba(255, 210, 0, 0.2) 0%, transparent 60%),
+              linear-gradient(135deg, #0A0D10 0%, #181D22 100%);
+  border: 1px solid rgba(255, 210, 0, 0.3);
+  border-radius: 28px;
+  padding: 56px 44px;
+  text-align: center;
+  color: var(--color-white);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.subpage-cta-banner h3 {
+  font-family: var(--font-heading);
+  font-size: 2.3rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: var(--color-white);
+}
+
+.subpage-cta-banner h3 span {
+  color: var(--color-primary);
+}
+
+.subpage-cta-banner p {
+  font-size: 1.1rem;
+  color: var(--color-gray-300);
+  max-width: 650px;
+  margin: 0 auto 32px;
+}
+
+.subpage-cta-guarantees {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  font-size: 0.85rem;
+  color: var(--color-gray-400);
+}
+
+.subpage-cta-guarantees span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Estilos Específicos para 2ª Via de Boletos */
+.boleto-search-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 24px;
+  padding: 40px 32px;
+  max-width: 680px;
+  margin: 0 auto 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+}
+
+.boleto-input-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.boleto-input {
+  flex: 1;
+  min-width: 240px;
+  background: var(--color-gray-50);
+  border: 1.5px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  transition: border-color var(--transition-fast);
+}
+
+.boleto-input:focus {
+  border-color: var(--color-primary);
+  background: #FFFFFF;
+}
+
+.boleto-result-card {
+  display: none;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 24px;
+  margin-top: 24px;
+  animation: fadeInSubpage 0.3s ease;
+}
+
+.boleto-result-card.active {
+  display: block;
+}
+
+.boleto-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.12);
+  color: #10B981;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.boleto-line-box {
+  background: #FFFFFF;
+  border: 1px dashed var(--color-gray-300);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  font-family: monospace;
+  font-size: 0.95rem;
+  word-break: break-all;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.btn-copy-code {
+  background: var(--color-black);
+  color: var(--color-primary);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.btn-copy-code:hover {
+  background: var(--color-primary);
+  color: var(--color-black);
+}
+
+/* Alerta Antifraude */
+.antifraude-card {
+  background: rgba(254, 242, 242, 0.9);
+  border: 1px solid #FECACA;
+  border-radius: 18px;
+  padding: 24px;
+  margin: 40px auto 0;
+  max-width: 680px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.antifraude-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #EF4444;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Responsividade das Subpáginas */
+@media (max-width: 992px) {
+  .subpage-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .subpage-hero-title {
+    font-size: 2.2rem;
+  }
+  .subpage-cta-banner {
+    padding: 40px 24px;
+  }
+  .subpage-cta-banner h3 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .subpage-hero {
+    padding: 36px 0 50px;
+  }
+  .subpage-hero-title {
+    font-size: 1.8rem;
+  }
+  .subpage-card-interactive {
+    padding: 24px 18px;
+  }
+  .subpage-breadcrumb-bar {
+    top: 60px;
+  }
+}
+
+/* ===================================================================
+   IDENTIFICADORES VISUAIS EXCLUSIVOS PARA CADA SUBPÁGINA / MENU
+   Mantém a identidade visual Axon intacta, diferenciando cada tela
+   =================================================================== */
+
+/* Indicador de Item Ativo no Dropdown Desktop e Mobile */
+.dropdown-link.active-subpage {
+  background: rgba(255, 210, 0, 0.1) !important;
+  color: var(--color-primary) !important;
+  font-weight: 700 !important;
+  border-left: 3px solid var(--color-primary);
+  padding-left: 14px;
+}
+
+.nav-link.has-active-subpage {
+  color: var(--color-primary) !important;
+}
+
+.mobile-nav-link.active-subpage {
+  background: rgba(255, 210, 0, 0.1) !important;
+  color: var(--color-primary) !important;
+  font-weight: 700 !important;
+  border-left: 3px solid var(--color-primary);
+  padding-left: 14px;
+}
+
+/* Badge Flutuante no Topo do Card Interativo */
+.subpage-card-badge-floating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 210, 0, 0.15);
+  border: 1px solid rgba(255, 210, 0, 0.4);
+  color: var(--color-primary);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* Mini Checklist de Vantagens no Card CLT */
+.clt-mini-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  font-size: 0.8rem;
+  color: var(--color-gray-300);
+}
+
+.clt-mini-checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clt-mini-checklist-item svg {
+  color: #10B981;
+  flex-shrink: 0;
+}
+
+/* Portabilidade - Alternador de Modo (Troco vs Redução de Parcela) */
+.port-mode-toggle {
+  display: flex;
+  background: #12161A;
+  border: 1px solid var(--color-black-border);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.port-toggle-btn {
+  flex: 1;
+  background: transparent;
+  color: var(--color-gray-400);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.port-toggle-btn.active {
+  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%);
+  color: #0A0D10;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(255, 210, 0, 0.35);
+}
+
+.port-troco-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10B981;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+/* Refinanciamento - Barra Visual de Amortização de Contrato */
+.refin-amort-box {
+  background: #12161A;
+  border: 1px solid var(--color-black-border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.refin-amort-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--color-gray-300);
+  margin-bottom: 8px;
+}
+
+.refin-amort-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.refin-amort-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #F59E0B, #FFD200);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+  width: 30%;
+}
+
+.refin-amort-legend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--color-gray-400);
+  margin-top: 6px;
+}
+
+/* Guia do Trabalhador - Barra de Divisão Salarial (35% x 65%) */
+.salary-split-container {
+  background: #12161A;
+  border: 1px solid var(--color-black-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.salary-split-bar {
+  display: flex;
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 10px 0;
+  background: #262D35;
+}
+
+.salary-split-margem {
+  width: 35%;
+  background: var(--color-primary);
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.salary-split-protegido {
+  width: 65%;
+  background: #10B981;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.salary-split-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+}
+
+.salary-split-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+/* FGTS - Seletor Rápido de Período em Pills */
+.fgts-years-pills {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 16px;
+  flex-wrap: wrap;
+}
+
+.fgts-pill-btn {
+  background: #12161A;
+  border: 1.5px solid var(--color-black-border);
+  color: var(--color-gray-300);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.fgts-pill-btn:hover {
+  border-color: rgba(255, 210, 0, 0.4);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+.fgts-pill-btn.active {
+  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%);
+  border-color: #FFD200;
+  color: #0A0D10;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(255, 210, 0, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Botões Seletores de Modo / Nível de Proteção (Seguro FGTS e Portabilidade INSS) */
+.port-mode-btn {
+  background: #12161A;
+  border: 1.5px solid var(--color-black-border);
+  color: var(--color-gray-300);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.port-mode-btn:hover {
+  border-color: rgba(255, 210, 0, 0.4);
+  color: var(--color-white);
+  background: #181E24;
+  transform: translateY(-1px);
+}
+
+.port-mode-btn.active {
+  background: linear-gradient(135deg, #FFD200 0%, #F59E0B 100%);
+  border-color: #FFD200;
+  color: #0A0D10;
+  font-weight: 800;
+  box-shadow: 0 4px 16px rgba(255, 210, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+/* INSS - Detalhamento das 3 Margens em Linhas Claras */
+.inss-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 0.82rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  color: var(--color-gray-300);
+}
+
+.inss-breakdown-row:last-child {
+  border-bottom: none;
+}
+
+/* ===================================================================
+   MARCAS-D'ÁGUA E GRAVURAS VETORIAIS (FINELINE 3% A 5%)
+   Suaves, elegantes e sem atrapalhar a legibilidade do texto branco
+   =================================================================== */
+
+.hero-content {
+  position: relative;
+}
+
+.hero-watermark-bg {
+  position: absolute;
+  top: 50%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+  width: 580px;
+  height: 580px;
+  max-width: 140%;
+  pointer-events: none;
+  opacity: 0.045;
+  z-index: 0;
+  user-select: none;
+  transition: opacity 0.4s ease;
+}
+
+.subpage-hero-col-left {
+  position: relative;
+}
+
+.subpage-watermark-clt {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  height: 520px;
+  max-width: 130%;
+  pointer-events: none;
+  opacity: 0.04;
+  z-index: 0;
+  user-select: none;
+  transition: opacity 0.4s ease;
+}
+
+/* Garante que o texto e botões fiquem sobrepostos com nitidez */
+.hero-badge-wrap,
+.hero-title,
+.hero-subtitle,
+.hero-ctas,
+.hero-proof,
+.subpage-category-tag,
+.subpage-hero-title,
+.subpage-hero-desc,
+.subpage-hero-pills,
+.subpage-hero-ctas {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .hero-watermark-bg {
+    width: 360px;
+    height: 360px;
+    left: 50%;
+    opacity: 0.035;
+  }
+  .subpage-watermark-clt {
+    width: 340px;
+    height: 340px;
+    left: 50%;
+    opacity: 0.035;
+  }
+}
+
+
+
 

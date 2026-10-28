@@ -148,14 +148,175 @@ Este documento registra todas as solicitações, decisões arquiteturais, implem
 
 ---
 
+### 🔹 Interação 9: Criação de Páginas Filhas Dinâmicas (SPA sem Sair do Site e sem Abrir Nova Aba)
+- **Solicitação do Usuário:**
+  > `/boost criar pagina filhas sem sair do site e sem carregar aba nova` *(acompanhado de captura do menu dropdown "Empréstimo CLT" com as opções: Empréstimo Consignado CLT, Portabilidade Consignado CLT, Refinanciamento Consignado CLT, Guia para empresas, 2ª via de boletos)*
+- **Arquitetura Implementada (Single Page Application - SPA):**
+  - **Navegação Contínua:** Transição instantânea entre a página inicial (Home) e as páginas filhas diretamente no `index.html`, sem recarregamento da página (`no-reload`), sem abrir abas novas (`sem target="_blank"`) e sem redirecionar para domínios externos.
+  - **Controle por Histórico e Hash URL:**
+    - Cada subpágina possui sua âncora/hash (ex: `#consignado-clt`, `#portabilidade-clt`, `#refinanciamento-clt`, `#guia-empresas`, `#segunda-via-boletos`, `#fgts-antecipacao`, `#inss-consignado`, `#calculadora-margem`, `#quem-somos`).
+    - Integração com `history.pushState` e evento `popstate`, permitindo usar os botões "Voltar" e "Avançar" do navegador nativamente.
+    - Suporte para compartilhamento e carregamento direto por link com hash.
+  - **Barra de Navegação Superior e Breadcrumbs:**
+    - Botão estilizado `[← Voltar ao Início]` e trilha de navegação (ex: `Início / Empréstimo CLT / Empréstimo Consignado CLT`).
+    - Clique na logotipo principal da AXON retorna à Home suavemente.
+  - **Páginas Filhas Criadas com Ferramentas e Design Dedicados:**
+    1. **Empréstimo Consignado CLT:** Hero de alta conversão, simulador dinâmico de margem consignável de 35% e limite pré-aprovado, 4 vantagens competitivas, passo a passo ilustrado, tabela comparativa de taxas e FAQ específico.
+    2. **Portabilidade Consignado CLT:** Simulador interativo com alternador entre *Opção 1 (Troco no PIX)* e *Opção 2 (Redução do valor da parcela mensal em até 28%)*, explicação do direito garantido pelo Banco Central e passo a passo.
+    3. **Refinanciamento Consignado CLT:** Calculadora de troco baseada em parcelas já amortizadas sem alterar o valor da parcela mensal e sem necessidade de margem nova.
+    4. **Guia para Empresas / RH:** Vantagens corporativas com custo zero e risco de crédito zero para a empresa, melhoria de produtividade da equipe e formulário corporativo integrado.
+    5. **2ª Via de Boletos:** Campo com máscara dinâmica de CPF (`000.000.000-00`), botão de busca instantânea, emissão da fatura com linha digitável, botão de copiar código, código PIX Copia e Cola, botão para envio do PDF via WhatsApp e guia antifraude de proteção ao consumidor.
+    6. **Páginas Complementares:** Antecipação Saque-Aniversário FGTS, Consignado INSS, Calculadora de Margem Consignável e Quem Somos.
+  - **Estilização e Design System:**
+    - Adição ao `style.css` de componentes e animações fluidas (`@keyframes fadeInSubpage`), barra sticky de breadcrumb com glassmorphism, cards interativos, seletores de range estilizados e responsividade total para celular, tablet e desktop.
+  - **Conformidade Contínua:**
+    - 100% sem CNPJ.
+    - 100% sem Blog.
+    - Encaminhamento com parâmetros contextualizados para o WhatsApp oficial (+55 11 94238-3794).
+- **Arquivos Modificados:**
+  - `style.css`
+  - `index.html`
+  - `CONVERSAS.md`
+
+---
+
+### 🔹 Interação 10: Ajuste do Menu Dropdown CLT (Remoção de 2ª Via de Boletos e Guia para Trabalhadores)
+- **Solicitação do Usuário:**
+  > `/boost pode tirar essa opaçao 2 via de boleto, e troca o guia para empresa para guia para trabalhadores` *(acompanhado de captura do menu dropdown Empréstimo CLT)*
+- **Ação Executada:**
+  - **Menu Dropdown "Empréstimo CLT":**
+    - Remoção definitiva da opção *"2ª via de boletos"*.
+    - Substituição de *"Guia para empresas"* por *"Guia para trabalhadores"*, apontando para `#guia-trabalhadores` com `data-subpage="guia-trabalhadores"`.
+  - **Estrutura de Menus e Rodapé:**
+    - Atualização do menu mobile para incluir *"Guia para Trabalhadores"* e remover a opção redundante de boleto do bloco CLT.
+    - Atualização dos links das colunas "Produtos" e "Atendimento" no rodapé para apontar para o novo *"Guia para Trabalhadores"*.
+    - Atualização do dropdown de Utilidades.
+  - **Nova Página Filha Dedicada ("Guia para Trabalhadores CLT"):**
+    - Criação da subpágina `#subpage-guia-trabalhadores`.
+    - Hero com badge *"Para Trabalhadores CLT • Direitos e Benefícios"*.
+    - Ferramenta interativa: **Calculadora de Proteção Salarial** (exibe a margem de 35%, o salário protegido de 65% pela lei 10.820 e o crédito médio estimado).
+    - 4 pilares educativos: Proteção contra superendividamento, aprovação mesmo negativado, direito à portabilidade a custo zero e alerta vital antifraude (nunca pagar taxas adiantadas).
+    - Passo a passo ilustrado de contratação para o trabalhador.
+    - FAQ específico do trabalhador com carteira assinada.
+    - Redirecionamento compatível de URLs antigas (`guia-empresas` redireciona para `guia-trabalhadores`).
+- **Arquivos Modificados:**
+  - `index.html`
+  - `CONVERSAS.md`
+
+---
+
+### 🔹 Interação 11: Diferenciação e Identificação Visual das Páginas Filhas (Sem Mudar o Design)
+- **Solicitação do Usuário:**
+  > `/boost páginas com pequenos detalhes mas sem mudar o visual designer da página, apenas pra identificar cada menu, pq esta tudo muito igual`
+- **Diagnóstico & Solução de Design:**
+  - As páginas compartilhavam a mesma estrutura de layout dark/gold, o que tornava a transição entre produtos pouco distinguível visualmente à primeira vista.
+  - Implementamos **pequenos detalhes de assinatura e componentes funcionais exclusivos** em cada página filha, mantendo intacto o visual designer premium (amarelo `#FFD200`, preto `#0A0D10`, slate `#181D22` e tipografia Outfit/Plus Jakarta Sans).
+- **Detalhes e Identificadores Implementados por Página:**
+  1. **Indicador de Menu Ativo (Desktop & Mobile):**
+     - O item clicado no dropdown ganha borda esquerda dourada, fundo sutil translúcido e texto em amarelo brilhante (`.active-subpage`).
+     - O menu pai no topo (ex: *Empréstimo CLT*, *FGTS*, *INSS*) recebe destaque em amarelo indicando a seção aberta.
+     - A trilha do Breadcrumb no topo da página exibe um micro-ícone temático identificando cada produto (💼, 🔄, ⚡, 📖, 🏦, 🏛️, 🧮, 🏢).
+  2. **Empréstimo Consignado CLT:**
+     - Selo flutuante no topo do card: `💼 Simulador de Holerite CLT`.
+     - Mini checklist de garantias no rodapé do card: *✓ Aprovado sem consulta SPC/Serasa* e *✓ Desconto automático direto no contracheque*.
+  3. **Portabilidade Consignado CLT:**
+     - Selo flutuante no topo do card: `🔄 Portabilidade sem Margem Livre`.
+     - **Alternador Interativo de Modo (Tabs):** O cliente pode alternar entre `[💰 Quero Troco no PIX]` e `[📉 Reduzir Parcela]`.
+     - Em "Troco", destaca o valor em verde e PIX imediato. Em "Redução", recalcula dinamicamente a parcela mensal com redução de 26% e exibe a economia total acumulada.
+  4. **Refinanciamento Consignado CLT:**
+     - Selo flutuante no topo do card: `⚡ Mesma Parcela Mensal`.
+     - **Régua Gráfica de Amortização de Contrato:** Barra de progresso visual em tempo real mostrando a porcentagem do contrato já quitada (ex: *18 de 60 parcelas pagas - 30% amortizado*) liberando crédito novo.
+  5. **Guia para Trabalhadores (CLT):**
+     - Selo flutuante no topo do card: `🛡️ Proteção Salarial Lei 10.820/03`.
+     - **Infográfico de Barra de Divisão Salarial (Split Bar):** Visualização gráfica clara separando a fatia amarela de *35% de Margem Máxima* da fatia verde de *65% de Salário Protegido e Intocável*.
+  6. **Antecipação Saque-Aniversário FGTS:**
+     - Selo flutuante no topo do card: `🏦 Sem Desconto Mensal no Salário`.
+     - **Seletor de Período em Pills Rápidas:** Botões `[3 Anos]`, `[5 Anos]`, `[7 Anos]` e `[10 Anos]` que recalculam instantaneamente o volume antecipado.
+  7. **Consignado INSS:**
+     - Selo flutuante no topo do card: `🏛️ Teto Regulamentado Dataprev`.
+     - **Detalhamento da Composição Legal:** Linhas dedicadas mostrando a margem de 35% de empréstimo e os 10% adicionais para cartões benefício e consignado.
+- **Conformidade Contínua:**
+  - 100% sem recarregamento de página (SPA fluida).
+  - 100% sem CNPJ e sem Blog.
+  - Links contextuais para o WhatsApp oficial (+55 11 94238-3794).
+- **Arquivos Modificados:**
+  - `style.css`
+  - `index.html`
+  - `CONVERSAS.md`
+
+---
+
+### 🔹 Interação 12: Inclusão do Badge "Popular" na Opção Consignado INSS
+- **Solicitação do Usuário:**
+  > `/boost nessa primeira foto colocar o botao na primeira opçao chamada consignado inss (aposentados) igual o da segunda foto`
+- **Ação Executada:**
+  - Adicionado o badge `<span class="dropdown-badge">Popular</span>` na primeira opção do dropdown **INSS** (`Consignado INSS (Aposentados)`), padronizando visualmente com o badge já existente na opção de Antecipação Saque-Aniversário do menu **FGTS**.
+- **Arquivos Modificados:**
+  - `index.html`
+  - `CONVERSAS.md`
+
+---
+
+### 🔹 Interação 13: Remoção das Opções "Seguros" e "Utilidades" do Menu Superior
+- **Solicitação do Usuário:**
+  > `/boost pode tira essas duas opçoes nao vai ter utilidade` *(acompanhado de captura dos menus "Seguros" e "Utilidades")*
+- **Ação Executada:**
+  - Remoção dos menus dropdown completos **Seguros** e **Utilidades** da barra de navegação principal (`site-header`).
+  - O header principal agora conta com uma estrutura enxuta, focada estritamente nas linhas principais de crédito e na empresa: **Empréstimo CLT**, **FGTS**, **INSS** e **Sobre**.
+- **Arquivos Modificados:**
+  - `index.html`
+  - `CONVERSAS.md`
+
+---
+
+### 🔹 Interação 14: Marcas-d’água e Gravuras Vetoriais em Marca Suave (Fineline)
+- **Solicitação do Usuário:**
+  > `/boost Marcas-d’água e Gravuras Vetoriais em Marca Suave
+  > Aplique uma gravura estilizada em SVG no fundo da coluna da esquerda ou centralizada suavemente atrás do título, com opacidade bem baixa (entre 3% e 6%) para não prejudicar a leitura do texto branco:
+  > Na Home (Geral): Elementos geométricos abstratos com linhas finas (fineline), ondas de dados, nós de conexão ou o próprio símbolo estilizado do logotipo da empresa em escala ampliada ocupando parte do fundo.
+  > Na Página CLT: Um ícone temático sutil em vetor de contorno (como a silhueta da Carteira de Trabalho/crachá, aperto de mãos corporativo ou símbolo de contrato/proteção com escudo).`
+- **Ação Executada:**
+  - **Na Home (Geral):**
+    - Gravura vetorial SVG fineline geométrica integrada como marca d'água (`.hero-watermark-bg`) posicionada atrás do bloco de texto e título principal.
+    - Composta por círculos de precisão, ondas de fluxo de dados, nós de conexão fintech e o polígono geométrico central da identidade Axon.
+    - Opacidade sutil calibrada em **4.5%** (com `pointer-events: none` e `z-index: 0`), garantindo 100% de contraste e legibilidade para os textos brancos.
+  - **Na Página CLT:**
+    - Gravura vetorial SVG temática (`.subpage-watermark-clt`) posicionada suavemente no fundo da coluna esquerda do Hero de Consignado CLT.
+    - Composta pela silhueta de contorno fino da Carteira de Trabalho/crachá com carimbo estrelado, linhas de contrato e o escudo protetor legal da Lei 10.820/03.
+    - Opacidade em **4.0%**, trazendo elegância e personalidade única para a página CLT sem sobrecarregar a tela.
+  - **Design System (`style.css`):**
+    - Adicionadas as regras de posicionamento e camadas (`position: relative; z-index: 1`) para todos os elementos de texto, títulos e botões, além de responsividade para dispositivos móveis.
+- **Arquivos Modificados:**
+  - `style.css`
+  - `index.html`
+  - `CONVERSAS.md`
+
+---
+
+### 🔹 Interação 15: Reorganização dos Cards de Produtos na Home
+- **Solicitação do Usuário:**
+  > `/boost trocar os cards por o card de antecipaçao do lado do emprestimo consignado clt e por o consignado inss do lado do portabilidade de credito`
+- **Ação Executada:**
+  - Reordenados os cards da primeira fileira do grid de produtos em `index.html`:
+    1. **1º Card:** Empréstimo Consignado CLT
+    2. **2º Card:** Antecipação do FGTS *(posicionado ao lado do Consignado CLT)*
+    3. **3º Card:** Consignado INSS *(posicionado ao lado da Portabilidade de Crédito)*
+    4. **4º Card:** Portabilidade de Crédito
+  - Mantidas todas as conexões dinâmicas de SPA (`data-subpage`) e rotas diretas.
+- **Arquivos Modificados:**
+  - `index.html`
+  - `CONVERSAS.md`
+
+---
+
 ## 📂 Estrutura de Arquivos do Projeto
 
 ```
 SiteAxon/
 ├── GEMINI.md                               # Diretrizes de idioma e conduta
 ├── CONVERSAS.md                            # Registro completo de todas as conversas e alterações
-├── index.html                              # Página principal da landing page
-├── style.css                               # Estilização completa e responsiva
+├── index.html                              # Landing page + SPA dinâmica de Páginas Filhas
+├── style.css                               # Design system completo e estilos das páginas filhas
 ├── whatsapp.html                           # Página de transição oficial com favicon Axon para o WhatsApp
 └── img/                                    # Imagens e marcas oficiais
     ├── Logotipo - AXON - Principal - 01.png  # Logo principal (fundo claro)
@@ -173,10 +334,15 @@ SiteAxon/
 ---
 
 ## 🚀 Resumo dos Recursos Ativos
-- **Simulador:** 100% dinâmico para CLT, INSS e FGTS com sliders responsivos.
-- **WhatsApp Integrado:** Número `+55 11 94238-3794` com mensagem contextualizada da simulação.
-- **Redes Sociais:** Instagram integrado com link oficial `https://www.instagram.com/axon.finance/` no rodapé.
-- **Identidade:** Símbolo `Logotipo - AXON - Símbolo - 01.png` ativo na aba do navegador e em `whatsapp.html`.
+- **Menu Dropdown CLT Ajustado:** Apenas 4 opções limpas e diretas: *Empréstimo Consignado CLT*, *Portabilidade Consignado CLT*, *Refinanciamento Consignado CLT* e *Guia para trabalhadores*.
+- **Páginas Filhas (SPA Dinâmica):** Navegação fluida para todos os produtos sem sair do site e sem abrir novas abas.
+- **Identificação Visual Exclusiva:** Cada página agora possui microcomponentes, badges e indicadores próprios que a tornam imediatamente reconhecível.
+- **Histórico & Breadcrumbs:** Suporte completo aos botões Voltar/Avançar do navegador e breadcrumb inteligente com ícones temáticos.
+- **Simuladores Exclusivos:** Cálculos dinâmicos em tempo real com sliders e inputs numéricos em cada página filha.
+- **WhatsApp Integrado:** Atendimento com mensagens pré-formatadas direcionadas ao número `+55 11 94238-3794`.
 - **Conformidade:** 100% sem CNPJ, sem menções a Blog e sem seção de aplicativo mobile.
+
+
+
 
 
