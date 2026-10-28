@@ -236,86 +236,152 @@
           </div>
         </div>
 
-        <!-- Card do Simulador Financeiro Dinâmico -->
-        <div class="simulator-card" id="simulador">
-          <div class="sim-header">
-            <div class="sim-partner-badge">
-              <span class="sim-partner-dot"></span>
-              <span>Motor de Crédito JoinBank • Axon Finance</span>
+        <!-- Card do Simulador Financeiro Oficial (Layout Fiel à Imagem de Referência) -->
+        <div class="simulator-card axon-sim-card" id="simulador">
+          
+          <!-- Coluna Esquerda: Configuração da Simulação -->
+          <div class="axon-sim-left">
+            
+            <!-- Topbar com Badges Institucionais -->
+            <div class="axon-sim-topbar">
+              <span class="axon-badge-brand">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+                Axon Finance
+              </span>
+              <span class="axon-badge-status">
+                <span class="axon-status-dot"></span>
+                JoinBank Homologação
+              </span>
             </div>
-            <h3><b>Simule e Contrate</b> seu Crédito Oficial</h3>
-            <p>Simulação em tempo real conectada à esteira bancária JoinBank</p>
-          </div>
 
-          <!-- Tabs CLT / INSS / FGTS -->
-          <div class="sim-tabs" role="tablist">
-            <button class="sim-tab active" id="tab-clt" role="tab" onclick="switchSimulator('clt')">CLT</button>
-            <button class="sim-tab" id="tab-inss" role="tab" onclick="switchSimulator('inss')">INSS</button>
-            <button class="sim-tab" id="tab-fgts" role="tab" onclick="switchSimulator('fgts')">FGTS</button>
-          </div>
-
-          <!-- Formulário do Simulador -->
-          <div class="sim-body">
-            <div class="sim-input-group">
-              <label for="sim-input-val" id="sim-label-text">Qual é o valor do seu salário bruto?</label>
-              <div class="sim-input-wrapper">
-                <span class="sim-prefix">R$</span>
-                <input type="text" id="sim-input-val" class="sim-input" value="3.500,00" oninput="handleInputValue(this)">
+            <!-- Modalidade de Crédito (4 Pills Selecionáveis) -->
+            <div class="axon-section-block">
+              <label class="axon-field-label">Modalidade de Crédito</label>
+              <div class="axon-modal-pills">
+                <button type="button" class="axon-modal-btn" id="btn-mod-clt" onclick="switchSimulatorModalidade('clt', this)">
+                  <span>Consignado</span>
+                  <strong>CLT</strong>
+                </button>
+                <button type="button" class="axon-modal-btn" id="btn-mod-inss" onclick="switchSimulatorModalidade('inss', this)">
+                  <span>INSS /</span>
+                  <strong>Benefício</strong>
+                </button>
+                <button type="button" class="axon-modal-btn" id="btn-mod-portabilidade" onclick="switchSimulatorModalidade('portabilidade', this)">
+                  <span>Portabilidade</span>
+                </button>
+                <button type="button" class="axon-modal-btn active" id="btn-mod-pessoal" onclick="switchSimulatorModalidade('pessoal', this)">
+                  <span>Crédito</span>
+                  <strong>Pessoal</strong>
+                </button>
               </div>
-              <div class="sim-range-wrap">
-                <input type="range" id="sim-slider" class="sim-range" min="1412" max="25000" step="100" value="3500" oninput="handleSlider(this.value)">
-                <div class="sim-range-labels">
-                  <span id="slider-min">R$ 1.412</span>
-                  <span id="slider-max">R$ 25.000</span>
+            </div>
+
+            <!-- Dados do Titular (Nome Completo e CPF) -->
+            <div class="axon-inputs-dual">
+              <div class="axon-field-group">
+                <label for="sim-nome-cliente">Nome Completo</label>
+                <input type="text" id="sim-nome-cliente" class="axon-input-text" placeholder="Ex: Carlos Eduardo Silva">
+              </div>
+              <div class="axon-field-group">
+                <label for="sim-cpf-cliente">CPF do Titular</label>
+                <input type="text" id="sim-cpf-cliente" class="axon-input-text" placeholder="000.000.000-00" maxlength="14" oninput="formatarCpfInput(this)">
+              </div>
+            </div>
+
+            <!-- Slider 1: Valor Solicitado -->
+            <div class="axon-slider-block">
+              <div class="axon-slider-header">
+                <span class="axon-label" id="axon-label-valor">Valor Solicitado</span>
+                <span class="axon-value-pill" id="axon-visor-valor">R$ 50.000</span>
+              </div>
+              <input type="range" id="sim-slider-valor" class="axon-range-input" min="1000" max="50000" step="500" value="50000" oninput="handleValorSlider(this.value)">
+              <div class="axon-slider-limits">
+                <span id="axon-min-valor">Mín: R$ 1.000</span>
+                <span id="axon-max-valor">Máx: R$ 50.000</span>
+              </div>
+            </div>
+
+            <!-- Slider 2: Prazo de Pagamento -->
+            <div class="axon-slider-block">
+              <div class="axon-slider-header">
+                <span class="axon-label">Prazo de Pagamento</span>
+                <span class="axon-value-pill" id="axon-visor-prazo">60 parcelas</span>
+              </div>
+              <input type="range" id="sim-slider-prazo" class="axon-range-input" min="12" max="84" step="6" value="60" oninput="handlePrazoSlider(this.value)">
+              <div class="axon-slider-limits">
+                <span>12x</span>
+                <span>84x</span>
+              </div>
+            </div>
+
+            <!-- Botão de Ação: Calcular Proposta Bancária Oficial -->
+            <button type="button" class="axon-btn-calc" onclick="calcularPropostaBackend()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+              <span>Calcular Proposta Bancária Oficial</span>
+            </button>
+
+          </div>
+
+          <!-- Coluna Direita: Box de Proposta Bancária Calculada -->
+          <div class="axon-sim-right">
+            <div>
+              <div class="axon-proposal-head">
+                <div class="axon-proposal-title">
+                  PROPOSTA BANCÁRIA<br>CALCULADA
+                </div>
+                <div class="axon-formalizacao-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  Formalização Digital
+                </div>
+              </div>
+
+              <!-- Valor da Parcela em Destaque -->
+              <div class="axon-proposal-amount" id="prop-valor-parcela">R$ 1.505,32</div>
+              <div class="axon-proposal-sub" id="prop-resumo-sub">60 parcelas mensais fixas no Crédito Pessoal</div>
+
+              <!-- Tabela com Detalhes da Proposta -->
+              <div class="axon-proposal-table">
+                <div class="axon-prop-row">
+                  <span class="axon-prop-label">Instituição Parceira:</span>
+                  <span class="axon-prop-value" id="prop-inst-parceira">Axon Finance (JoinBank)</span>
+                </div>
+                <div class="axon-prop-row">
+                  <span class="axon-prop-label">Valor Liberado:</span>
+                  <span class="axon-prop-value" id="prop-valor-liberado">R$ 50.000,00</span>
+                </div>
+                <div class="axon-prop-row">
+                  <span class="axon-prop-label">Taxa Nominal:</span>
+                  <span class="axon-taxa-badge" id="prop-taxa-nominal">2,19% a.m. (29,8% a.a.)</span>
+                </div>
+                <div class="axon-prop-row">
+                  <span class="axon-prop-label">Primeiro Vencimento:</span>
+                  <span class="axon-prop-value" id="prop-primeiro-venc">Em até 60 dias</span>
+                </div>
+                <div class="axon-prop-row">
+                  <span class="axon-prop-label">Status da Conexão:</span>
+                  <span class="axon-prop-value" style="color: #059669;" id="prop-status-conexao">Pronta para Assinatura (JoinSigner)</span>
+                </div>
+              </div>
+
+              <!-- Box de Segurança JoinSigner / BACEN -->
+              <div class="axon-security-box">
+                <svg class="axon-security-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <div>
+                  <strong>Formalização Segura JoinSigner:</strong> Assinatura 100% digital com biometria facial e validade jurídica pelo BACEN.
                 </div>
               </div>
             </div>
 
-            <!-- Seletor Rápido de Prazo / Parcelamento -->
-            <div class="sim-terms-selector" id="sim-terms-selector">
-              <label style="font-size: 0.82rem; color: #94A3B8; font-weight: 600; display: block; margin-bottom: 6px;" id="sim-terms-label">Prazo de Pagamento:</label>
-              <div class="sim-terms-pills" id="sim-terms-pills">
-                <button type="button" class="sim-term-pill" onclick="selectSimulatorTerm(36, this)">36x</button>
-                <button type="button" class="sim-term-pill" onclick="selectSimulatorTerm(60, this)">60x</button>
-                <button type="button" class="sim-term-pill active" onclick="selectSimulatorTerm(84, this)">84x</button>
-                <button type="button" class="sim-term-pill" onclick="selectSimulatorTerm(96, this)">96x</button>
-              </div>
-            </div>
-
-            <!-- Box com Resultado Estimado -->
-            <div class="sim-result-box">
-              <div class="sim-result-top-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Proposta Pré-Aprovada na Bancarizadora
-              </div>
-              <span class="sim-result-label" id="result-label">Crédito Estimado Liberado</span>
-              <div class="sim-result-value" id="result-amount">R$ 14.700,00</div>
-              <div class="sim-result-terms" id="result-details">
-                Em até <strong>84 parcelas</strong> de <strong>R$ 367,50</strong> • Taxa de <strong>1,49% a.m.</strong>
-              </div>
-            </div>
-
-            <!-- Botões de Ação Dupla: Formalização Digital Direta JoinBank + Atendimento WhatsApp -->
-            <div class="sim-actions-stack">
-              <button type="button" class="btn btn-primary sim-btn-formalizar" id="sim-btn-formalizar" onclick="abrirFormalizacaoJoinBank()">
-                <span>Formalizar Contrato Online</span>
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <!-- Ações: Botão Amarelo de Formalização + Botão WhatsApp -->
+            <div class="axon-proposal-actions">
+              <button type="button" class="axon-btn-formalizar-hero" id="sim-btn-formalizar" onclick="abrirFormalizacaoJoinBank()">
+                Acessar Formalização Digital (JoinSigner)
               </button>
-              <a href="whatsapp.html" target="_blank" rel="noopener noreferrer" class="btn btn-dark sim-btn-wpp" id="sim-btn-submit" onclick="goToWhatsApp(event)">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                Tirar Dúvidas no WhatsApp
+              <a href="whatsapp.html" target="_blank" rel="noopener noreferrer" class="axon-btn-wpp-hero" onclick="goToWhatsApp(event)">
+                Falar com Especialista Axon no WhatsApp
               </a>
             </div>
 
-            <div class="sim-integration-footer">
-              <span class="sim-secure-tag">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                Assinatura digital criptografada (Ajin Signer)
-              </span>
-              <p class="sim-disclaimer">
-                *Simulação via esteira de crédito JoinBank / Axon Finance. Sujeito à verificação cadastral e margem disponível.
-              </p>
-            </div>
           </div>
         </div>
 
@@ -3100,198 +3166,204 @@
       };
     })();
 
-    let currentTab = 'clt';
-    let currentTerm = 84; // Padrão: 84 parcelas (ou 10 anos no FGTS)
+    // Estado Atual do Simulador
+    let currentModalidade = 'pessoal';
+    let currentValor = 50000;
+    let currentPrazo = 60;
 
-    const simConfigs = {
+    const MODALIDADES_CONFIG = {
       clt: {
-        label: "Qual é o valor do seu salário bruto?",
-        min: 1412,
-        max: 25000,
-        default: 3500,
-        rateMonthly: 0.0149,
-        rateText: "1,49% a.m.",
-        terms: [36, 60, 84, 96],
-        termsUnit: "x",
-        defaultTerm: 84,
-        calculate: function(val, term) {
-          term = term || currentTerm || 84;
-          const margin = val * 0.35;
-          // Coeficiente de amortização financeira (Price simplificado)
-          const i = 0.0149;
-          const factor = (1 - Math.pow(1 + i, -term)) / i;
-          const estimatedLoan = margin * Math.min(factor, term * 0.52);
-          const installment = margin * 0.95;
-          return {
-            loan: estimatedLoan,
-            installment: installment,
-            months: term,
-            terms: `Em até <strong>${term} parcelas</strong> de <strong>${formatCurrency(installment)}</strong> • Taxa de <strong>1,49% a.m.</strong>`
-          };
-        }
+        nome: "Consignado CLT",
+        taxaMensal: 0.0149,
+        taxaAnual: 0.194,
+        taxaTexto: "1,49% a.m. (19,4% a.a.)",
+        minValor: 1000,
+        maxValor: 80000,
+        defaultValor: 35000,
+        minPrazo: 12,
+        maxPrazo: 84,
+        defaultPrazo: 60,
+        vencimento: "Em até 45 dias no contracheque",
+        resumoSub: "parcelas mensais com desconto em folha CLT"
       },
       inss: {
-        label: "Qual é o valor do seu benefício INSS?",
-        min: 1412,
-        max: 8000,
-        default: 2800,
-        rateMonthly: 0.0139,
-        rateText: "1,39% a.m.",
-        terms: [36, 60, 84, 96],
-        termsUnit: "x",
-        defaultTerm: 84,
-        calculate: function(val, term) {
-          term = term || currentTerm || 84;
-          const margin = val * 0.35;
-          const i = 0.0139;
-          const factor = (1 - Math.pow(1 + i, -term)) / i;
-          const estimatedLoan = margin * Math.min(factor, term * 0.54);
-          const installment = margin * 0.92;
-          return {
-            loan: estimatedLoan,
-            installment: installment,
-            months: term,
-            terms: `Em até <strong>${term} parcelas</strong> de <strong>${formatCurrency(installment)}</strong> • Taxa de <strong>1,39% a.m.</strong>`
-          };
-        }
+        nome: "INSS / Benefício",
+        taxaMensal: 0.0139,
+        taxaAnual: 0.179,
+        taxaTexto: "1,39% a.m. (17,9% a.a.)",
+        minValor: 1000,
+        maxValor: 90000,
+        defaultValor: 25000,
+        minPrazo: 12,
+        maxPrazo: 84,
+        defaultPrazo: 72,
+        vencimento: "Em até 60 dias no benefício",
+        resumoSub: "parcelas mensais fixas no Benefício INSS"
       },
-      fgts: {
-        label: "Qual é o seu saldo total no FGTS?",
-        min: 500,
-        max: 50000,
-        default: 5000,
-        rateMonthly: 0.0179,
-        rateText: "1,79% a.m.",
-        terms: [3, 5, 10, 12],
-        termsUnit: " anos",
-        defaultTerm: 10,
-        calculate: function(val, term) {
-          term = term || currentTerm || 10;
-          let baseFactor = 0.40;
-          if (val <= 1000) baseFactor = 0.50;
-          else if (val <= 5000) baseFactor = 0.40;
-          else if (val <= 10000) baseFactor = 0.30;
-          else baseFactor = 0.25;
-
-          const yearMultiplier = Math.min(0.85, 0.40 + (term * 0.04));
-          const estimatedLoan = Math.min(val * yearMultiplier, val * 0.82);
-
-          return {
-            loan: estimatedLoan,
-            installment: 0,
-            months: term,
-            terms: `Antecipação de <strong>${term} anos</strong> do Saque-Aniversário • <strong>Sem parcelas mensais</strong>`
-          };
-        }
+      portabilidade: {
+        nome: "Portabilidade com Troco",
+        taxaMensal: 0.0135,
+        taxaAnual: 0.174,
+        taxaTexto: "1,35% a.m. (17,4% a.a.)",
+        minValor: 2000,
+        maxValor: 100000,
+        defaultValor: 40000,
+        minPrazo: 24,
+        maxPrazo: 84,
+        defaultPrazo: 60,
+        vencimento: "Mesmo vencimento do contrato original",
+        resumoSub: "parcelas reduzidas com troco liberado no PIX"
+      },
+      pessoal: {
+        nome: "Crédito Pessoal",
+        taxaMensal: 0.0219,
+        taxaAnual: 0.298,
+        taxaTexto: "2,19% a.m. (29,8% a.a.)",
+        minValor: 1000,
+        maxValor: 50000,
+        defaultValor: 50000,
+        minPrazo: 12,
+        maxPrazo: 84,
+        defaultPrazo: 60,
+        vencimento: "Em até 60 dias",
+        resumoSub: "parcelas mensais fixas no Crédito Pessoal"
       }
     };
 
-    function formatCurrency(number) {
-      return number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
-    function switchSimulator(tab) {
-      currentTab = tab;
-      
-      // Atualiza tabs visuais
-      document.getElementById('tab-clt').classList.toggle('active', tab === 'clt');
-      document.getElementById('tab-inss').classList.toggle('active', tab === 'inss');
-      document.getElementById('tab-fgts').classList.toggle('active', tab === 'fgts');
-
-      const config = simConfigs[tab];
-      document.getElementById('sim-label-text').innerText = config.label;
-      
-      const slider = document.getElementById('sim-slider');
-      slider.min = config.min;
-      slider.max = config.max;
-      slider.value = config.default;
-
-      document.getElementById('slider-min').innerText = formatCurrency(config.min);
-      document.getElementById('slider-max').innerText = formatCurrency(config.max);
-
-      document.getElementById('sim-input-val').value = config.default.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-      
-      // Atualiza os pills de prazo (meses ou anos)
-      currentTerm = config.defaultTerm;
-      const termsContainer = document.getElementById('sim-terms-pills');
-      const termsLabel = document.getElementById('sim-terms-label');
-      if (termsLabel) {
-        termsLabel.innerText = tab === 'fgts' ? "Período Antecipado do FGTS:" : "Prazo de Pagamento:";
-      }
-      if (termsContainer) {
-        termsContainer.innerHTML = config.terms.map(t => {
-          const isActive = t === currentTerm ? ' active' : '';
-          const label = `${t}${config.termsUnit}`;
-          return `<button type="button" class="sim-term-pill${isActive}" onclick="selectSimulatorTerm(${t}, this)">${label}</button>`;
-        }).join('');
-      }
-
-      updateCalculations(config.default);
-    }
-
-    function selectSimulatorTerm(term, btn) {
-      currentTerm = term;
-      document.querySelectorAll('#sim-terms-pills .sim-term-pill').forEach(b => b.classList.remove('active'));
+    function switchSimulatorModalidade(mod, btn) {
+      currentModalidade = mod;
+      document.querySelectorAll('.axon-modal-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
 
-      const slider = document.getElementById('sim-slider');
-      if (slider) {
-        updateCalculations(parseFloat(slider.value));
+      const conf = MODALIDADES_CONFIG[mod] || MODALIDADES_CONFIG.pessoal;
+      const sliderVal = document.getElementById('sim-slider-valor');
+      const sliderPrazo = document.getElementById('sim-slider-prazo');
+
+      if (sliderVal) {
+        sliderVal.min = conf.minValor;
+        sliderVal.max = conf.maxValor;
+        sliderVal.value = conf.defaultValor;
+        currentValor = conf.defaultValor;
+        document.getElementById('axon-min-valor').innerText = `Mín: R$ ${conf.minValor.toLocaleString('pt-BR')}`;
+        document.getElementById('axon-max-valor').innerText = `Máx: R$ ${conf.maxValor.toLocaleString('pt-BR')}`;
+      }
+
+      if (sliderPrazo) {
+        sliderPrazo.min = conf.minPrazo;
+        sliderPrazo.max = conf.maxPrazo;
+        sliderPrazo.value = conf.defaultPrazo;
+        currentPrazo = conf.defaultPrazo;
+      }
+
+      atualizarVisores();
+      executarCalculoProposta();
+    }
+
+    function handleValorSlider(val) {
+      currentValor = parseFloat(val);
+      atualizarVisores();
+      executarCalculoProposta();
+    }
+
+    function handlePrazoSlider(val) {
+      currentPrazo = parseInt(val);
+      atualizarVisores();
+      executarCalculoProposta();
+    }
+
+    function atualizarVisores() {
+      const visorVal = document.getElementById('axon-visor-valor');
+      const visorPrazo = document.getElementById('axon-visor-prazo');
+      if (visorVal) visorVal.innerText = `R$ ${currentValor.toLocaleString('pt-BR')}`;
+      if (visorPrazo) visorPrazo.innerText = `${currentPrazo} parcelas`;
+    }
+
+    // Calcula localmente e solicita em paralelo ao backend /api/simular
+    async function executarCalculoProposta() {
+      const conf = MODALIDADES_CONFIG[currentModalidade] || MODALIDADES_CONFIG.pessoal;
+      const i = conf.taxaMensal;
+      const n = currentPrazo;
+      const pv = currentValor;
+
+      // Fórmula de amortização de parcelas Price
+      // PMT = PV * [i * (1+i)^n] / [(1+i)^n - 1]
+      const pmt = pv * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+
+      // Atualiza os campos de visualização para o cliente instantaneamente
+      const parcelaEl = document.getElementById('prop-valor-parcela');
+      const resumoSubEl = document.getElementById('prop-resumo-sub');
+      const liberadoEl = document.getElementById('prop-valor-liberado');
+      const taxaEl = document.getElementById('prop-taxa-nominal');
+      const vencEl = document.getElementById('prop-primeiro-venc');
+
+      if (parcelaEl) parcelaEl.innerText = pmt.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      if (resumoSubEl) resumoSubEl.innerText = `${currentPrazo} ${conf.resumoSub}`;
+      if (liberadoEl) liberadoEl.innerText = pv.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      if (taxaEl) taxaEl.innerText = conf.taxaTexto;
+      if (vencEl) vencEl.innerText = conf.vencimento;
+
+      // Chama o backend em background para sincronização com a esteira bancária
+      try {
+        const backendResult = await AxonSecurityClient.simular(currentModalidade, currentValor, currentPrazo);
+        if (backendResult && backendResult.dados) {
+          // Se o backend retornar valores refinados ou taxas especiais homologadas
+          if (backendResult.dados.valorParcelaFormatado) {
+            parcelaEl.innerText = backendResult.dados.valorParcelaFormatado;
+          }
+        }
+      } catch(e) {}
+    }
+
+    // Botão de Calcular Proposta Oficial
+    async function calcularPropostaBackend() {
+      const btn = document.querySelector('.axon-btn-calc');
+      if (btn) {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `<span>Sincronizando com JoinBank...</span>`;
+        btn.style.opacity = '0.85';
+        await executarCalculoProposta();
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.style.opacity = '1';
+        }, 600);
       }
     }
 
-    function handleSlider(val) {
-      const num = parseFloat(val);
-      document.getElementById('sim-input-val').value = num.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-      updateCalculations(num);
-    }
-
-    function handleInputValue(input) {
-      let cleanVal = input.value.replace(/\D/g, '');
-      if (!cleanVal) cleanVal = "0";
-      const floatVal = parseFloat(cleanVal) / 100;
-      
-      const slider = document.getElementById('sim-slider');
-      slider.value = floatVal;
-      updateCalculations(floatVal);
-    }
-
-    function updateCalculations(val) {
-      const config = simConfigs[currentTab];
-      const result = config.calculate(val, currentTerm);
-      
-      document.getElementById('result-amount').innerText = formatCurrency(result.loan);
-      document.getElementById('result-details').innerHTML = result.terms;
-    }
-
-    // Abertura Direta do Fluxo Oficial de Formalização Digital JoinBank (Ajin Signer)
+    // Abertura Direta do Fluxo Oficial de Formalização Digital JoinBank (JoinSigner)
     async function abrirFormalizacaoJoinBank() {
-      const amount = document.getElementById('result-amount')?.innerText || "R$ 14.700,00";
-      const inputVal = document.getElementById('sim-input-val')?.value || "";
-      const modalidadeMap = {
-        clt: "Consignado CLT",
-        inss: "Consignado INSS",
-        fgts: "Antecipação FGTS"
-      };
-      const modalidade = modalidadeMap[currentTab] || "Crédito Consignado";
+      const nome = document.getElementById('sim-nome-cliente')?.value || "Cliente Axon";
+      const cpf = document.getElementById('sim-cpf-cliente')?.value || "";
+      const parcela = document.getElementById('prop-valor-parcela')?.innerText || "R$ 1.505,32";
+      const liberado = document.getElementById('prop-valor-liberado')?.innerText || "R$ 50.000,00";
 
       const proposta = {
-        modalidade: modalidade,
-        valorBase: inputVal,
-        creditoEstimado: amount,
-        prazo: currentTerm,
+        nome: nome,
+        cpf: cpf,
+        modalidade: currentModalidade,
+        valorSolicitado: liberado,
+        valorParcela: parcela,
+        prazo: currentPrazo,
+        instituicao: "Axon Finance (JoinBank)",
         timestamp: Date.now()
       };
 
-      // Armazena dados da proposta localmente de forma segura para preenchimento
       try {
         localStorage.setItem('axon_proposta_ativa', JSON.stringify(proposta));
-      } catch (e) {}
+      } catch(e) {}
 
-      // Resolve o link de formalização protegido através do backend
+      // Resolve a URL criptografada através do Backend Proxy
       const urlFormalizacao = await AxonSecurityClient.getFormalizacaoUrl(proposta);
       window.open(urlFormalizacao, '_blank', 'noopener,noreferrer');
     }
+
+    // Inicialização da Simulação Padrão
+    document.addEventListener('DOMContentLoaded', () => {
+      atualizarVisores();
+      executarCalculoProposta();
+    });
+    // Executa também diretamente para garantir inicialização imediata
+    atualizarVisores();
+    executarCalculoProposta();
 
     // FAQ Accordion
     function toggleFaq(btn) {
